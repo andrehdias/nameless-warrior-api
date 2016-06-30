@@ -2,6 +2,18 @@ var express = require('express'),
 		router = express.Router(),
 		User = require('../models/users');
 
+router.route('/list')
+	.get(function(req, res) {
+    User.find(function(err, users) {
+      if (err)
+          res.send(err);
+
+      /*users = res.json(users);*/
+      res.render('users/list', {'users': users});
+    });
+
+  });
+
 router.route('/')
 	.post(function(req, res) {
 		var user = new User();
@@ -22,7 +34,7 @@ router.route('/')
 
       res.json(users);
     });
-	});
+});
 
 router.route('/:user_id')
 	.get(function(req, res) {
