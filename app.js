@@ -4,7 +4,12 @@ var express = require('express'),
 		mongoose = require('mongoose'),			
 		port = process.env.PORT || 8080;
 
-mongoose.connect('mongodb://localhost:27017/nameless-warrior');		
+
+var connStr = 'mongodb://localhost:27017/nameless-warrior';
+mongoose.connect(connStr, function(err) {
+	if (err) throw err;
+	console.log('Successfully connect to MongoDB');
+});		
 
 app.set('views', __dirname + '/views');
 app.engine('jade', require('jade').__express);
