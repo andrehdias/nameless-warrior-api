@@ -7,8 +7,7 @@ router.route('/list')
     User.find(function(err, users) {
       if (err)
           res.send(err);
-
-      /*users = res.json(users);*/
+      
       res.render('users/list', {'users': users});
     });
 

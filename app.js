@@ -18,7 +18,7 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.use(require('./controllers'));
+app.use(require('./routes'));
 
 app.listen(port, function() {
 	console.log('YOOOOO!, Server up on port: ' + port);
