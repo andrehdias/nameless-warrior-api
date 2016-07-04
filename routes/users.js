@@ -42,6 +42,7 @@ router.route('/:user_id')
 		User.findById(req.params.user_id, function(err, user) {
 			if (err)
 				res.send(err);
+
 			res.json(user);
 		});
 	})
@@ -71,6 +72,30 @@ router.route('/:user_id')
 				res.send(err);
 
 			res.json({message: 'Successfully deleted!'});
+		});
+	});
+
+router.route('/login')
+	.post(function(req, res) {
+		var user = new User();
+
+		user.email = req.body.email;
+		user.password = req.body.password;
+
+
+    User.findOne({email: req.body.email }, function(err, user) {
+			if (err)
+				res.send(err);
+
+			user.comparePassword(req.body.password, function(err, isMatch) {
+	        if (err)
+	        	res.send(err);
+	        
+	        if(isMatch)
+	        	res.json({message: 'Successfully logged!'});
+	       	else
+	        	res.json({message: 'Invalid data!'});	       		
+	    });
 		});
 	});
 

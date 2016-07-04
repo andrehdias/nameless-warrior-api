@@ -6,5 +6,13 @@ block link
 block content
   h1.title List of Users
 
-  for user in users
-    p #{user.name}
+  .columns
+    for user in users
+      .column
+        .card.is-full-width
+          header.card-header
+            p.card-header-title User #{user._id}
+          .card-content
+            h2 #{user.email}
+          footer.card-footer
+            a.card-footer-item Delete
