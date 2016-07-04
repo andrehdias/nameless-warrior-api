@@ -1,4 +1,10 @@
 extends ../layout
 
-for user in users
-	p #{user.name}
+block link
+  -var selected = 'Users'
+
+block content
+  h1.title List of Users
+
+  for user in users
+    p #{user.name}

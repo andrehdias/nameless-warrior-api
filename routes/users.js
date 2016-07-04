@@ -16,7 +16,9 @@ router.route('/list')
 router.route('/')
 	.post(function(req, res) {
 		var user = new User();
-		user.name = req.body.name;
+
+		user.email = req.body.email;
+		user.password = req.body.password;
 
 		user.save(function(err) {
 			if(err)
@@ -49,7 +51,8 @@ router.route('/:user_id')
 			if (err)
 				res.send(err);
 
-			user.name = req.body.name;
+			user.email = req.body.email;
+			user.password = req.body.password;
 
 			user.save(function(err) {
 				if(err)
