@@ -4,8 +4,29 @@ var mongoose = require('mongoose'),
     SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({	
-	email: {type: String, required: true, index: { unique: true }},
-	password: {type: String, required: true}
+	email: { type: String, required: true, index: { unique: true } },
+	password: { type: String, required: true },
+  characters: [{ type: Schema.Types.ObjectId, ref: 'Character' }]
+});
+
+var CharacterSchema = new Schema({ 
+  _user: { type: Number, ref: 'User' },
+
+  nickname: { type: String, required: true },
+  class: { type: String, required: true },
+
+  strength: { type: Number, required: true },
+  constitution: { type: Number, required: true },
+  dexterity: { type: Number, required: true },
+  intelligence: { type: Number, required: true },
+  charisma: { type: Number, required: true },
+
+  health: { type: Number, required: true },
+  mana: { type: Number, required: true },
+  stamina: { type: Number, required: true },
+
+  hunger: { type: Number, required: true },
+  sleep: { type: Number, required: true }
 });
 
 UserSchema.pre('save', function(next) {
@@ -37,3 +58,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Character', CharacterSchema);

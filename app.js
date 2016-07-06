@@ -3,13 +3,19 @@ var express = require('express'),
 		bodyParser = require('body-parser'),
 		mongoose = require('mongoose'),			
 		port = process.env.PORT || 8080;
-
+		
 
 var connStr = 'mongodb://localhost:27017/nameless-warrior';
 mongoose.connect(connStr, function(err) {
 	if (err) throw err;
 	console.log('Successfully connect to MongoDB');
 });		
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');    
+    next();
+});
 
 app.set('views', __dirname + '/views');
 app.engine('jade', require('jade').__express);
