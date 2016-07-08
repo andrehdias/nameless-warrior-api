@@ -2,101 +2,87 @@ var express = require('express'),
 		router = express.Router(),
 		User = require('../models/users');
 
+
+//JADE Routes
 router.route('/list')
-	.get(function(req, res) {
+	.get(function(req, res, next) {
     User.find(function(err, users) {
       if (err)
-          res.send(err);
+        return next(err);
       
       res.render('users/list', {'users': users});
     });
-
   });
 
-router.route('/')
-	.post(function(req, res) {
-		var user = new User();
 
-		user.email = req.body.email;
-		user.password = req.body.password;
+//REST Routes
+router.route('/')
+	.post(function(req, res, next) {
+		var user = new User({
+			email: req.body.email,
+			password: req.body.password
+		});
 
 		user.save(function(err) {
 			if(err)
-				res.send(err);
+				return next(err);
 
-			res.json({message: 'User created!'});
+			res.json({message: 'Usuário Criado!'})
 		});
 	})
 
-	.get(function(req, res) {
+	.get(function(req, res, next) {
 	  User.find(function(err, users) {
       if (err)
-          res.send(err);
+         return next(err);
 
       res.json(users);
     });
 });
 
 router.route('/:user_id')
-	.get(function(req, res) {
+	.get(function(req, res, next) {
 		User.findById(req.params.user_id, function(err, user) {
 			if (err)
-				res.send(err);
+				return next(err);
 
 			res.json(user);
 		});
 	})
 
-	.put(function(req, res) {
-		User.findById(req.params.user_id, function(err, user) {
-			if (err)
-				res.send(err);
-
-			user.email = req.body.email;
-			user.password = req.body.password;
-
-			user.save(function(err) {
-				if(err)
-					res.send(err);
-
-				res.json({message: 'User updated!'});
-			})
-		});		
-	})
-
-	.delete(function(req, res) {
+	.delete(function(req, res, next) {
 		User.remove({
 			_id: req.params.user_id			
 		}, function(err, user) {
 			if(err)
-				res.send(err);
+				return next(err);
 
-			res.json({message: 'Successfully deleted!'});
+			res.json({message: 'Usuário Deletado!'});
 		});
 	});
 
 router.route('/login')
-	.post(function(req, res) {
-		var user = new User();
-
-		user.email = req.body.email;
-		user.password = req.body.password;
-
+	.post(function(req, res, next) {
+		var user = new User({
+			email: req.body.email,
+			password: req.body.password
+		});
 
     User.findOne({email: req.body.email }, function(err, user) {
 			if (err)
-				res.send(err);
+				return next(err);
 
 			user.comparePassword(req.body.password, function(err, isMatch) {
-	        if (err)
-	        	res.send(err);
-	        
-	        if(isMatch)
-	        	res.json({message: 'Successfully logged!'});
-	       	else
-	        	res.json({message: 'Invalid data!'});	       		
+        if (err)
+        	return next(err);
+        
+        if(isMatch)
+        	res.json({message: 'Logado com sucesso!'});
+       	else
+        	res.json({message: 'Dados Inválidos!'});	       		
 	    });
 		});
 	});
+
 
 module.exports = router;
