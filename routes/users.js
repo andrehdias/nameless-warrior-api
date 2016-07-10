@@ -77,9 +77,9 @@ router.route('/login')
         	return next(err);
         
         if(isMatch)
-        	res.json({message: 'Logado com sucesso!'});
+        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logado com sucesso!'});
        	else
-        	res.json({message: 'Dados Inválidos!'});	       		
+        	res.json({logged: false, message: 'Dados Inválidos!'});	       		
 	    });
 		});
 	});
