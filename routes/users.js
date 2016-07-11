@@ -74,19 +74,24 @@ router.route('/login')
 			password: req.body.password
 		});
 
-    User.findOne({email: req.body.email }, function(err, user) {
-			if (err)
+    User.findOne({email: req.body.email}, function(err, user) {			
+    	if(err)
 				return next(err);
 
-			user.comparePassword(req.body.password, function(err, isMatch) {
-        if (err)
-        	return next(err);
-        
-        if(isMatch)
-        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logado com sucesso!'});
-       	else
-        	res.json({logged: false, message: 'Dados Inválidos!'});	       		
-	    });
+			if(!user) {
+				res.json({logged: false, message: 'E-mail não cadastrado!'});	       		
+			} else {
+				user.comparePassword(req.body.password, function(err, isMatch) {
+	        if (err)
+	        	return next(err);
+	        
+	        if(isMatch)
+	        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logado com sucesso!'});
+	       	else
+	        	res.json({logged: false, message: 'Dados Inválidos!'});	       		
+		    });				
+			}
+
 		});
 	});
 
