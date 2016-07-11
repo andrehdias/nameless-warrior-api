@@ -1,18 +1,18 @@
 extends ../layout
 
 block link
-  -var selected = 'Users'
+  -var selected = 'Characters'
 
 block content
-  h1.title List of Users
+  h1.title List of Characters
 
   .columns.is-multiline
-    for user in users
+    for character in characters
       .column.is-4
         .card.is-full-width
           header.card-header
-            p.card-header-title User #{user._id}
+            p.card-header-title Character #{character._id}
           .card-content
-            h2 #{user.email}
+            h2 #{character.nickname}
           footer.card-footer
             a.card-footer-item Delete
