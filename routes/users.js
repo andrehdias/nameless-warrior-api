@@ -23,11 +23,17 @@ router.route('/')
 			password: req.body.password
 		});
 
-		user.save(function(err) {
-			if(err)
-				return next(err);
+		User.findOne({email: req.body.email}, function(err, foundUser) {
+			if(!foundUser) {
+				user.save(function(err) {
+					if(err)
+						return next(err);
 
-			res.json({message: 'Usuário Criado!'})
+					res.json({created: true, message: 'Usuário Criado!'});	       		
+				});				
+			} else {				
+				res.json({created: false, message: 'E-mail já cadastrado!'});	       		
+			}
 		});
 	})
 
