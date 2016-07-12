@@ -12,27 +12,16 @@ mongoose.connect(config.connStr, function(err) {
 	console.log('Successfully connect to MongoDB');
 });		
 
-
-//Set template engine
-app.set('views', __dirname + '/views');
-app.engine('jade', require('jade').__express);
-app.set('view engine', 'jade');
-
-
-//Config express
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public'));
 
-
-//API Access Control
+//API Access Control to REST
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
-
 
 //Call routes
 app.use(require('./routes'));

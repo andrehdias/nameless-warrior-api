@@ -2,20 +2,6 @@ var express = require('express'),
 		router = express.Router(),
 		User = require('../models/users');
 
-
-//JADE Routes
-router.route('/list')
-	.get(function(req, res, next) {
-    User.find(function(err, users) {
-      if (err)
-        return next(err);
-      
-      res.render('users/list', {'users': users});
-    });
-  });
-
-
-//REST Routes
 router.route('/')
 	.post(function(req, res, next) {
 		var user = new User({
