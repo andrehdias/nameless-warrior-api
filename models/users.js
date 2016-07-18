@@ -8,6 +8,9 @@ var UserSchema = new Schema({
 	password: { type: String, required: true },
   admin: { type: Boolean, default: false },
   characters: [{ type: Schema.Types.ObjectId, ref: 'Character' }]
+},
+{
+  timestamps: true
 });
 
 UserSchema.pre('save', function(next) {

@@ -5,20 +5,20 @@ var express = require('express'),
 router.route('/')
 	.post(function(req, res, next) {
 		var user = new User({
-			email: req.body.email,
-			password: req.body.password			
+			email: req.body.signupEmail,
+			password: req.body.signupPassword			
 		});
 
-		User.findOne({email: req.body.email}, function(err, foundUser) {
+		User.findOne({email: req.body.signupEmail}, function(err, foundUser) {
 			if(!foundUser) {
 				user.save(function(err) {
 					if(err)
 						return next(err);
 
-					res.json({created: true, message: 'Usuário Criado!'});	       		
+					res.json({created: true, message: 'User created!'});	       		
 				});				
 			} else {				
-				res.json({created: false, message: 'E-mail já cadastrado!'});	       		
+				res.json({created: false, message: 'E-mail already registered!'});	       		
 			}
 		});
 	})
@@ -49,32 +49,32 @@ router.route('/:user_id')
 			if(err)
 				return next(err);
 
-			res.json({message: 'Usuário Deletado!'});
+			res.json({message: 'User deleted!'});
 		});
 	});
 
 router.route('/login')
 	.post(function(req, res, next) {
 		var user = new User({
-			email: req.body.email,
-			password: req.body.password
+			email: req.body.loginEmail,
+			password: req.body.loginPassword
 		});
 
-    User.findOne({email: req.body.email}, function(err, user) {			
+    User.findOne({email: req.body.loginEmail}, function(err, user) {			
     	if(err)
 				return next(err);
 
 			if(!user) {
-				res.json({logged: false, message: 'E-mail não cadastrado!'});	       		
+				res.json({logged: false, message: 'E-mail not found!'});	       		
 			} else {
-				user.comparePassword(req.body.password, function(err, isMatch) {
+				user.comparePassword(req.body.loginPassword, function(err, isMatch) {
 	        if (err)
 	        	return next(err);
 	        
 	        if(isMatch)
-	        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logado com sucesso!'});
+	        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logged!'});
 	       	else
-	        	res.json({logged: false, message: 'Dados Inválidos!'});	       		
+	        	res.json({logged: false, message: 'Invalid data!'});	       		
 		    });				
 			}
 

@@ -2,6 +2,7 @@ var express = require('express'),
 router = express.Router();
 
 Character = require('../models/characters');
+User = require('../models/users');
 
 router.route('/')
 	.post(function(req, res, next) {
@@ -22,7 +23,7 @@ router.route('/')
 			if(err)
 				return next(err);
 
-			res.json({created: true, message: 'Personagem Criado!'});	       		
+			res.json({created: true, message: 'Character Created!'});	       		
 		});
 	})
 	.get(function(req, res, next) {

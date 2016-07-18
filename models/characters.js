@@ -7,6 +7,8 @@ var CharacterSchema = new Schema({
   nickname: { type: String, required: true },
   characterClass: { type: String, required: true },
 
+  gender: { type: String, required: true },
+
   strength: { type: Number, required: true },
   constitution: { type: Number, required: true },
   dexterity: { type: Number, required: true },
@@ -19,6 +21,9 @@ var CharacterSchema = new Schema({
 
   hunger: { type: Number, default: 0 },
   sleep: { type: Number, default: 0 }
+},
+{
+  timestamps: true
 });
 
 module.exports = mongoose.model('Character', CharacterSchema);
