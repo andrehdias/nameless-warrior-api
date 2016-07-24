@@ -27,23 +27,25 @@ router.route('/')
 
 			res.json({created: true, message: 'Character Created!'});	       		
 		});
-	})
-	.get(function(req, res, next) {
-	  Character.find(function(err, characters) {
-      if (err)
-         return next(err);
-
-      res.json(characters);
-    });				
 	});
 
-router.route('/:user_id')
+router.route('/byUser/:user_id')
 	.get(function(req, res, next) {
 		Character.find({_user: req.params.user_id}, function(err, characters) {
 			if (err)
 				return next(err);
 
 			res.json(characters);
+		});
+	});
+
+router.route('/:character_id')
+	.get(function(req, res, next) {
+		Character.findById(req.params.character_id, function(err, character) {
+			if (err)
+				return next(err);
+
+			res.json(character);
 		});
 	});
 
