@@ -1,9 +1,9 @@
-var express = require('express'),
-		app = express(),
+var express    = require('express'),
+		app        = module.exports = express(),
 		bodyParser = require('body-parser'),
-		mongoose = require('mongoose'),
-		port = process.env.PORT || 8080,
-		config = require('./api.json');
+		mongoose   = require('mongoose'),
+		port       = process.env.PORT || 8080,
+		config     = require('./api.json');
 
 
 //Connect to Mongo
@@ -25,8 +25,40 @@ app.use(function (req, res, next) {
 });
 
 
+//Set secret to auth
+app.set('superSecret', config.secret);
+
+
 //Call routes
 app.use(require('./routes'));
+
+
+// route middleware to verify a token
+app.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
+    });
+  }
+});
 
 
 // Development error handler

@@ -1,6 +1,8 @@
 var express = require('express'),
-		router = express.Router(),
-		User = require('../models/users');
+		router  = express.Router(),
+		User    = require('../models/users'),
+    jwt     = require('jsonwebtoken'),
+    app     = require('../app');
 
 router.route('/')
 	.post(function(req, res, next) {
@@ -72,10 +74,15 @@ router.route('/login')
 	        if (err)
 	        	return next(err);
 
-	        if(isMatch)
-	        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logged!'});
-	       	else
+	        if(isMatch) {
+            var token = jwt.sign({"id": user._id, "email": user.email}, app.get('superSecret'), {
+              expiresIn: 60*60*24
+            });
+
+	        	res.json({logged: true, userId: user._id , email: user.email, message: 'Logged!', token: token});
+          } else {
 	        	res.json({logged: false, message: 'Invalid data!'});
+          }
 		    });
 			}
 
@@ -84,3 +91,5 @@ router.route('/login')
 
 
 module.exports = router;
+
+

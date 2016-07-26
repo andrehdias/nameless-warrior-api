@@ -1,3 +1,4 @@
-{	
-	"connStr": "mongodb://localhost:27017/nameless-warrior"
+{
+	"connStr": "mongodb://localhost:27017/nameless-warrior",
+  "secret": "BIRLLLLLLLLLLLLLLL"
 }
