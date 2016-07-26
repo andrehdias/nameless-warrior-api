@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var CharacterSchema = new Schema({ 
+var CharacterSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
 
   nickname: { type: String, required: true },
@@ -25,5 +25,16 @@ var CharacterSchema = new Schema({
 {
   timestamps: true
 });
+
+CharacterSchema.pre('save', function(next) {
+  this.fillStats();
+  next();
+});
+
+CharacterSchema.methods.fillStats = function() {
+  this.health = 100 + this.constitution * 2;
+  this.mana = 100 + this.intelligence * 2;
+  this.stamina = 50 + this.dexterity * 2;
+};
 
 module.exports = mongoose.model('Character', CharacterSchema);

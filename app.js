@@ -1,7 +1,7 @@
 var express = require('express'),
 		app = express(),
 		bodyParser = require('body-parser'),
-		mongoose = require('mongoose'),			
+		mongoose = require('mongoose'),
 		port = process.env.PORT || 8080,
 		config = require('./api.json');
 
@@ -10,10 +10,11 @@ var express = require('express'),
 mongoose.connect(config.connStr, function(err) {
 	if (err) throw err;
 	console.log('Successfully connect to MongoDB');
-});		
+});
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
 
 //API Access Control to REST
 app.use(function (req, res, next) {
@@ -22,6 +23,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
+
 
 //Call routes
 app.use(require('./routes'));
@@ -32,7 +34,7 @@ app.use(require('./routes'));
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
   	console.log(err)
-  	
+
     res.status(err.status || 500)
 	    .send({
 	        message: err.message,

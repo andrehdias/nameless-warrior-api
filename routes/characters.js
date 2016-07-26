@@ -1,5 +1,5 @@
 var express = require('express'),
-router = express.Router();
+    router = express.Router();
 
 Character = require('../models/characters');
 User = require('../models/users');
@@ -18,16 +18,26 @@ router.route('/')
 			constitution: req.body.constitution,
 			dexterity: req.body.dexterity,
 			intelligence: req.body.intelligence,
-			charisma: req.body.charisma,						
+			charisma: req.body.charisma,
 		});
-		
+
 		character.save(function(err) {
 			if(err)
 				return next(err);
 
-			res.json({created: true, message: 'Character Created!'});	       		
+			res.json({created: true, message: 'Character Created!'});
 		});
-	});
+	})
+
+  //For debugging reasons
+  .get(function(req, res, next) {
+    Character.find(function(err, characters) {
+      if (err)
+        return next(err);
+
+      res.json(characters);
+    });
+  });
 
 router.route('/byUser/:user_id')
 	.get(function(req, res, next) {
