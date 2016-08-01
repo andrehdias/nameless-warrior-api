@@ -1,11 +1,11 @@
-var express = require('express'),
-    router = express.Router();
-
-Character = require('../models/characters');
-User = require('../models/users');
+var express 	= require('express'),
+    router 		= express.Router(),
+		Character = require('../models/characters'),
+		User 			= require('../models/users'),
+		middlewares = require('../middlewares/middlewares');
 
 router.route('/')
-	.post(function(req, res, next) {
+	.post(middlewares.tokenMiddleware, function(req, res, next) {
 		var character = new Character({
 			_user: req.body.userId,
 
@@ -40,7 +40,7 @@ router.route('/')
   });
 
 router.route('/byUser/:user_id')
-	.get(function(req, res, next) {
+	.get(middlewares.tokenMiddleware, function(req, res, next) {
 		Character.find({_user: req.params.user_id}, function(err, characters) {
 			if (err)
 				return next(err);
@@ -50,7 +50,7 @@ router.route('/byUser/:user_id')
 	});
 
 router.route('/:character_id')
-	.get(function(req, res, next) {
+	.get(middlewares.tokenMiddleware, function(req, res, next) {
 		Character.findById(req.params.character_id, function(err, character) {
 			if (err)
 				return next(err);

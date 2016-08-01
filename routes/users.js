@@ -1,8 +1,9 @@
-var express = require('express'),
-		router  = express.Router(),
-		User    = require('../models/users'),
-    jwt     = require('jsonwebtoken'),
-    app     = require('../app');
+var express 		= require('express'),
+		router  		= express.Router(),
+		User    		= require('../models/users'),
+    jwt     		= require('jsonwebtoken'),
+    app     		= require('../app'),
+    middlewares = require('../middlewares/middlewares');
 
 router.route('/')
 	.post(function(req, res, next) {
@@ -36,7 +37,7 @@ router.route('/')
 });
 
 router.route('/:user_id')
-	.get(function(req, res, next) {
+	.get(middlewares.tokenMiddleware, function(req, res, next) {
 		User.findById(req.params.user_id, function(err, user) {
 			if (err)
 				return next(err);
@@ -88,7 +89,6 @@ router.route('/login')
 
 		});
 	});
-
 
 module.exports = router;
 
