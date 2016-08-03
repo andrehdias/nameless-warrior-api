@@ -10,9 +10,7 @@ router.route('/')
 			_user: req.body.userId,
 
 			nickname: req.body.characterNickname,
-			characterClass: req.body.characterClass,
-
-			gender: req.body.characterGender,
+			characterClass: req.body.characterClass,			
 
 			strength: req.body.strength,
 			constitution: req.body.constitution,

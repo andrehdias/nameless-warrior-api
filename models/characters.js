@@ -7,8 +7,6 @@ var CharacterSchema = new Schema({
   nickname: { type: String, required: true },
   characterClass: { type: String, required: true },
 
-  gender: { type: String, required: true },
-
   strength: { type: Number, required: true },
   constitution: { type: Number, required: true },
   dexterity: { type: Number, required: true },
