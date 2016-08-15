@@ -6,6 +6,12 @@ var express 	= require('express'),
 
 router.route('/')
 	.post(middlewares.tokenMiddleware, function(req, res, next) {
+		var health = 100 + (req.body.constitution) * 2,
+				mana = 100 + (req.body.intelligence) * 2,
+				stamina = 100 + (req.body.dexterity) * 2,
+				sleep = 100,
+				hunger = 100;
+
 		var character = new Character({
 			_user: req.body.userId,
 
@@ -17,6 +23,11 @@ router.route('/')
 			dexterity: req.body.dexterity,
 			intelligence: req.body.intelligence,
 			charisma: req.body.charisma,
+			health: health,
+			mana: mana,
+			stamina: stamina,
+			sleep: sleep,
+			hunger: hunger
 		});
 
 		character.save(function(err) {
