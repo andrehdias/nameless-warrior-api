@@ -5,20 +5,37 @@ var CharacterSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
 
   nickname: { type: String, required: true },
-  characterClass: { type: String, required: true },
+  characterClass: { type: Number, required: true },
 
   strength: { type: Number, required: true },
+  strengthXP: { type: Number, required: true },
+
   constitution: { type: Number, required: true },
+  constitutionXP: { type: Number, required: true },
+
   dexterity: { type: Number, required: true },
+  dexterityXP: { type: Number, required: true },
+
   intelligence: { type: Number, required: true },
+  intelligenceXP: { type: Number, required: true },
+
   charisma: { type: Number, required: true },
+  charismaXP: { type: Number, required: true },
 
   health: { type: Number, default: 0 },
+  currentHealth: { type: Number, default: 0 },
+
   mana: { type: Number, default: 0 },
+  currentMana: { type: Number, default: 0 },
+
   stamina: { type: Number, default: 0 },
+  currentStamina: { type: Number, default: 0 },
 
   hunger: { type: Number, default: 0 },
+  currentHunger: { type: Number, default: 0 },
+
   sleep: { type: Number, default: 0 }
+  currentSleep: { type: Number, default: 0 }
 },
 {
   timestamps: true
