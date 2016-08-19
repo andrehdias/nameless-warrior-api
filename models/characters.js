@@ -34,7 +34,7 @@ var CharacterSchema = new Schema({
   hunger: { type: Number, default: 0 },
   currentHunger: { type: Number, default: 0 },
 
-  sleep: { type: Number, default: 0 }
+  sleep: { type: Number, default: 0 },
   currentSleep: { type: Number, default: 0 }
 },
 {
