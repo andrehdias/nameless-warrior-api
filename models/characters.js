@@ -5,22 +5,22 @@ var CharacterSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
 
   nickname: { type: String, required: true },
-  characterClass: { type: Number, required: true },
+  characterClass: { type: Number, default: 0 },
 
   strength: { type: Number, required: true },
-  strengthXP: { type: Number, required: true },
+  strengthXP: { type: Number, default: 0 },
 
   constitution: { type: Number, required: true },
-  constitutionXP: { type: Number, required: true },
+  constitutionXP: { type: Number, default: 0 },
 
   dexterity: { type: Number, required: true },
-  dexterityXP: { type: Number, required: true },
+  dexterityXP: { type: Number, default: 0 },
 
   intelligence: { type: Number, required: true },
-  intelligenceXP: { type: Number, required: true },
+  intelligenceXP: { type: Number, default: 0 },
 
   charisma: { type: Number, required: true },
-  charismaXP: { type: Number, required: true },
+  charismaXP: { type: Number, default: 0 },
 
   health: { type: Number, default: 0 },
   currentHealth: { type: Number, default: 0 },
@@ -42,14 +42,27 @@ var CharacterSchema = new Schema({
 });
 
 CharacterSchema.pre('save', function(next) {
-  this.fillStats();
+  this.fillStats(next);
   next();
 });
 
-CharacterSchema.methods.fillStats = function() {
-  this.health = 100 + this.constitution * 2;
-  this.mana = 100 + this.intelligence * 2;
-  this.stamina = 50 + this.dexterity * 2;
+CharacterSchema.methods.fillStats = function(next) {    
+  if (this.isModified('health')) return next();
+
+  var health = 100 + (this.constitution) * 2,
+      mana = 100 + (this.intelligence) * 2,
+      stamina = 100 + (this.dexterity) * 2;
+
+  this.health = health;
+  this.currentHealth = health;
+  this.mana = mana;
+  this.currentMana = mana;
+  this.stamina = stamina;
+  this.currentStamina = stamina;
+  this.sleep = 100,
+  this.currentSleep = 100,
+  this.hunger = 100;
+  this.currentHunger = 100;
 };
 
 module.exports = mongoose.model('Character', CharacterSchema);
