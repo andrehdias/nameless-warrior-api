@@ -3,13 +3,27 @@ var express    = require('express'),
 		bodyParser = require('body-parser'),
 		mongoose   = require('mongoose'),
 		port       = process.env.PORT || 8080,
-		config     = require('./api.json');
+		config     = require('./api.json'),
+		ascii			 = require('image-to-ascii');
+
+function showBanner() {
+	ascii("banner/unicorn.jpg",
+	 			{
+					size: {
+						height: "70%"
+					}
+				},
+				function(err, converted) {
+    			console.log(err || converted);
+				});
+}
 
 
 //Connect to Mongo
 mongoose.connect(config.connStr, function(err) {
-	if (err) 
+	if (err)
     throw err;
+
 	console.log('Successfully connect to MongoDB');
 });
 
@@ -57,5 +71,6 @@ app.use(function(err, req, res, next) {
 
 //Open server
 app.listen(port, function() {
+	showBanner();
 	console.log('YOOOOO!, Server up on port: ' + port);
 });
