@@ -4,7 +4,6 @@ var mongoose = require('mongoose'),
 var CharacterSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
 
-  nickname: { type: String, required: true },
   characterClass: { type: Number, default: 0 },
 
   strength: { type: Number, required: true },
@@ -46,7 +45,7 @@ CharacterSchema.pre('save', function(next) {
   next();
 });
 
-CharacterSchema.methods.fillStats = function(next) {    
+CharacterSchema.methods.fillStats = function(next) {
   if (this.isModified('health')) return next();
 
   var health = 100 + (this.constitution) * 2,

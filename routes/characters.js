@@ -9,8 +9,7 @@ router.route('/')
 		var character = new Character({
 			_user: req.body.userId,
 
-			nickname: req.body.characterNickname,
-			characterClass: req.body.characterClass,			
+			characterClass: req.body.characterClass,
 
 			strength: req.body.strength,
 			constitution: req.body.constitution,
