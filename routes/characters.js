@@ -56,7 +56,7 @@ router.route('/:character_id')
     });
   });
 
-router.route('updateLocation/:character_id')
+router.route('/updateLocation/:character_id')
   .put(middlewares.tokenMiddleware, function (req, res) {
     Character.findById(req.params.character_id, function (err, character) {
       if (err)
@@ -75,7 +75,7 @@ router.route('updateLocation/:character_id')
     });
   });
 
-router.route('updateStatus/:character_id')
+router.route('/updateStatus/:character_id')
   .put(middlewares.tokenMiddleware, function (req, res) {
     Character.findById(req.params.character_id, function (err, character) {
       if (err)
