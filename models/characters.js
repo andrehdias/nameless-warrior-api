@@ -34,7 +34,11 @@ var CharacterSchema = new Schema({
   currentHunger: { type: Number, default: 0 },
 
   sleep: { type: Number, default: 0 },
-  currentSleep: { type: Number, default: 0 }
+  currentSleep: { type: Number, default: 0 },
+
+  lastMap: { type: String },
+  lastPositionX: { type: Number, default: 0 },
+  lastPositionY: { type: Number, default: 0 }
 },
 {
   timestamps: true
