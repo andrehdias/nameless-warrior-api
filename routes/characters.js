@@ -38,7 +38,7 @@ router.route('/')
 
 router.route('/byUser/:user_id')
   .get(middlewares.tokenMiddleware, function (req, res, next) {
-    Character.find({ _user: req.params.user_id }, function (err, characters) {
+    Character.find({ _user: req.params.user_id }).sort('-updatedAt').exec(function (err, characters) {
       if (err)
         return next(err);
 
