@@ -105,4 +105,37 @@ router.route('/updateStatus/:character_id')
     });
   });
 
+router.route('/updateCharacter/:character_id')
+  .put(middlewares.tokenMiddleware, function (req, res) {
+    Character.findById(req.params.character_id, function (err, character) {
+      if (err)
+        return next(err);
+
+      character.strength = req.body.strength;
+      character.strengthXP = req.body.strengthXP;
+      character.constitution = req.body.constitution;
+      character.constitutionXP = req.body.constitutionXP;
+      character.dexterity = req.body.dexterity;
+      character.dexterityXP = req.body.dexterityXP;
+      character.intelligence = req.body.intelligence;
+      character.intelligenceXP = req.body.intelligenceXP;
+      character.charisma = req.body.charisma;
+      character.charismaXP = req.body.charismaXP;
+      character.health = req.body.health;
+      character.currentHealth = req.body.currentHealth;
+      character.mana = req.body.mana;
+      character.currentMana = req.body.currentMana;
+      character.lastMap = req.body.lastMap;
+      character.lastPositionX = req.body.lastPositionX;
+      character.lastPositionY = req.body.lastPositionY;
+
+      character.save(function (err) {
+        if (err)
+          res.send(err);
+
+        res.json({ message: 'Character updated!' });
+      });
+    });
+  });
+
 module.exports = router;
