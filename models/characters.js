@@ -50,7 +50,7 @@ CharacterSchema.pre('save', function(next) {
 });
 
 CharacterSchema.methods.fillStats = function(next) {
-  if (this.isModified('health')) return next();
+  if (this.isModified()) return next();
 
   var health = 100 + (this.constitution) * 2,
       mana = 100 + (this.intelligence) * 2,
