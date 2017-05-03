@@ -45,13 +45,13 @@ var CharacterSchema = new Schema({
 });
 
 CharacterSchema.pre('save', function(next) {
-  this.fillStats(next);
+  if (this.isModified('lastPositionX')) return next();
+
+  this.fillStats();
   next();
 });
 
-CharacterSchema.methods.fillStats = function(next) {
-  if (this.isModified()) return next();
-
+CharacterSchema.methods.fillStats = function() {
   var health = 100 + (this.constitution) * 2,
       mana = 100 + (this.intelligence) * 2,
       stamina = 100 + (this.dexterity) * 2;
