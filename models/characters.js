@@ -38,7 +38,21 @@ var CharacterSchema = new Schema({
 
   lastMap: { type: String },
   lastPositionX: { type: Number, default: 0 },
-  lastPositionY: { type: Number, default: 0 }
+  lastPositionY: { type: Number, default: 0 },
+
+  firstDialog: { type: Boolean, default: false },
+
+  quests: {
+    first: {
+      counter: { type: Number, default: 0 },
+      done: { type: Boolean, default: false }
+    },
+
+    second: {
+      counter: { type: Number, default: 0 },
+      done: { type: Boolean, default: false }
+    }
+  }
 },
 {
   timestamps: true

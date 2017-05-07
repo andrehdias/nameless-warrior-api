@@ -24,17 +24,17 @@ router.route('/')
 
       res.json({ created: true, message: 'Character Created!' });
     });
-  })
+  });
 
   //For debugging reasons
-  .get(function (req, res, next) {
-    Character.find(function (err, characters) {
-      if (err)
-        return next(err);
+  // .get(function (req, res, next) {
+  //   Character.find(function (err, characters) {
+  //     if (err)
+  //       return next(err);
 
-      res.json(characters);
-    });
-  });
+  //     res.json(characters);
+  //   });
+  // });
 
 router.route('/byUser/:user_id')
   .get(middlewares.tokenMiddleware, function (req, res, next) {
@@ -125,9 +125,20 @@ router.route('/updateCharacter/:character_id')
       character.currentHealth = req.body.currentHealth;
       character.mana = req.body.mana;
       character.currentMana = req.body.currentMana;
+
       character.lastMap = req.body.lastMap;
       character.lastPositionX = req.body.lastPositionX;
       character.lastPositionY = req.body.lastPositionY;
+      character.firstDialog = req.body.firstDialog;
+
+      if(req.body.quests) {
+        character.quests.first.counter = req.body.quests.first.counter;
+        character.quests.first.done = req.body.quests.first.done;
+        character.quests.second.counter = req.body.quests.second.counter;
+        character.quests.second.done = req.body.quests.second.done;
+      }
+
+      character.firstDialog = req.body.firstDialog;
 
       character.save(function (err) {
         if (err)
