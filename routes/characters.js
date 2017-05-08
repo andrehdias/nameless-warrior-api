@@ -15,7 +15,10 @@ router.route('/')
       constitution: req.body.constitution,
       dexterity: req.body.dexterity,
       intelligence: req.body.intelligence,
-      charisma: req.body.charisma
+      charisma: req.body.charisma,
+
+      health: req.body.health,
+      currentHealth: req.body.health,
     });
 
     character.save(function (err) {
@@ -25,16 +28,6 @@ router.route('/')
       res.json({ created: true, message: 'Character Created!' });
     });
   });
-
-  //For debugging reasons
-  // .get(function (req, res, next) {
-  //   Character.find(function (err, characters) {
-  //     if (err)
-  //       return next(err);
-
-  //     res.json(characters);
-  //   });
-  // });
 
 router.route('/byUser/:user_id')
   .get(middlewares.tokenMiddleware, function (req, res, next) {
@@ -137,6 +130,9 @@ router.route('/updateCharacter/:character_id')
         character.quests.second.counter = req.body.quests.second.counter;
         character.quests.second.done = req.body.quests.second.done;
       }
+
+      character.gameTimeHours = req.body.gameTimeHours;
+      character.gameTimeMinutes = req.body.gameTimeMinutes;
 
       character.firstDialog = req.body.firstDialog;
 

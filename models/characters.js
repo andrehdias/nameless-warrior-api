@@ -52,16 +52,16 @@ var CharacterSchema = new Schema({
       counter: { type: Number, default: 0 },
       done: { type: Boolean, default: false }
     }
-  }
+  },
+
+  gameTimeHours: { type: Number, default: 0 },
+  gameTimeMinutes: { type: Number, default: 0 }
 },
 {
   timestamps: true
 });
 
 CharacterSchema.pre('save', function(next) {
-  if (this.isModified('lastPositionX')) return next();
-
-  this.fillStats();
   next();
 });
 
