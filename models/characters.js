@@ -54,7 +54,7 @@ var CharacterSchema = new Schema({
     }
   },
 
-  gameTimeHours: { type: Number, default: 0 },
+  gameTimeHours: { type: Number, default: 12 },
   gameTimeMinutes: { type: Number, default: 0 }
 },
 {
