@@ -45,12 +45,14 @@ var CharacterSchema = new Schema({
   quests: {
     first: {
       counter: { type: Number, default: 0 },
-      done: { type: Boolean, default: false }
+      done: { type: Boolean, default: false },
+      started: { type: Boolean, default: false }
     },
 
     second: {
       counter: { type: Number, default: 0 },
-      done: { type: Boolean, default: false }
+      done: { type: Boolean, default: false },
+      started: { type: Boolean, default: false }
     }
   },
 

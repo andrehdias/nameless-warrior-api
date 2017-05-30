@@ -127,8 +127,10 @@ router.route('/updateCharacter/:character_id')
       if(req.body.quests) {
         character.quests.first.counter = req.body.quests.first.counter;
         character.quests.first.done = req.body.quests.first.done;
+        character.quests.first.started = req.body.quests.first.started;
         character.quests.second.counter = req.body.quests.second.counter;
         character.quests.second.done = req.body.quests.second.done;
+        character.quests.second.started = req.body.quests.second.started;
       }
 
       character.gameTimeHours = req.body.gameTimeHours;
