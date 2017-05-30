@@ -1,7 +1,7 @@
 var express = require('express'),
 		router = express.Router();
 
-router.get('/', function(req, res) {  
+router.get('/', function(req, res) {
   res.send('<h1>GET OUT OF HERE!</h1>');
 });
 
