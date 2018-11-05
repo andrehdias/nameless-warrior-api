@@ -9,7 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
