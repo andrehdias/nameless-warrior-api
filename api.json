@@ -1,5 +1,5 @@
 {
-	"connStr": "mongodb://localhost:27017/nameless-warrior",
+	"connStr": "mongodb://admin:4dm1n3s@ds259802.mlab.com:59802/nameless-warrior",
   "secret": "BIRLLLLLLLLLLLLLLL",
   "xAccessControl": "*"
 }
